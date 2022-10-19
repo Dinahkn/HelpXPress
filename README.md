@@ -24,4 +24,4 @@ The project is coded with:
 * SQL Server
 ## Some picture from the project
 ### Home Page
-![Alt text](/posts/path/to/img.jpg )
+![screen home page](HelpXPress/imagePage/homepage.png)
