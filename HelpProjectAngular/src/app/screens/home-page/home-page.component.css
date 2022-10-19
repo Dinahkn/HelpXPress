@@ -1,0 +1,71 @@
+*{
+  font-family: 'David Libre', serif;
+  font-size: medium;
+}
+.navbar{
+  justify-content: space-between;
+  direction: ltr;
+  margin-bottom: 50px;
+}
+a{
+  padding-right: 1rem;
+}
+.logonav{
+  width: 100px;
+}
+
+
+main{
+  text-align: center;
+  padding-top: 100px ;
+  overflow-y: auto;
+  background-color: azure;
+}
+
+.intro{
+  color: blue;
+  direction: rtl;
+  text-align: center;
+}
+.backBbsit{
+  background-image: url('/assets/bbsit.png');
+  background-size: cover;
+  width: 350px;
+  height: 350px;
+  color:white;
+  font-size: x-large;
+}
+.backCarpool{
+  background-image: url('/assets/carpool.png');
+  background-size:cover;
+  width: 350px;
+  height: 350px;
+  color:white;
+  font-size: x-large;
+}
+.backTeacher{
+  background-image: url('/assets/school.png');
+  background-size: cover;
+  width: 350px;
+  height: 350px;
+  color:white;
+  font-size: x-large;
+}
+.btn{
+  background-color:blanchedalmond;
+  border: black solid;
+  margin-right: 10px;
+  width: 350px;
+  height: 350px;
+  border-radius: 20px;
+  background-size: 350px 350px;
+
+}
+footer{
+  position:relative;
+  bottom: 0px;
+  width: 100%;
+  min-height: 50px;
+  height: 20px;
+  text-align: center;
+}

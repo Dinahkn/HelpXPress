@@ -1,0 +1,164 @@
+<header>
+  <mat-toolbar class="navbar">
+    <div>
+      <a routerLink="/SignIn"><button mat-button color="primary">התחברות</button></a>
+    </div>
+    <a href="#"><img src="assets/logo.png" class="logonav"></a>
+  </mat-toolbar>
+</header>
+<main>
+  <div class="form">
+    <h1>הרשמה</h1>
+    <div class="container">
+      <form [formGroup]="registerForm"  method="post">
+        <div>
+          <mat-form-field appearance="outline" color="warn">
+            <mat-label>שם מלא</mat-label>
+            <input matInput type="text" required formControlName="fullName" >
+            <mat-icon matSuffix>mode_edit</mat-icon>
+            <mat-error *ngIf="registerForm.controls['fullName'].hasError('minlength')">
+              השם צריך להכיל לפחות 6 תווים
+            </mat-error>
+            <mat-error *ngIf="registerForm.controls['fullName'].hasError('maxlength')">
+              השם צריך להכיל מקסימום 40 תווים
+            </mat-error>
+            <mat-error *ngIf="registerForm.controls['fullName'].hasError('pattern')">
+              צריך להקליד רק אותיות
+            </mat-error>
+            <mat-error *ngIf="registerForm.controls['fullName'].hasError('required')">
+              חייב להקליד שם
+            </mat-error>
+          </mat-form-field>
+        </div>
+        <div>
+          <mat-form-field appearance="outline" color="warn">
+            <mat-label>אימייל</mat-label>
+            <input matInput type="email" required [email]="true" formControlName="emailRegister" >
+            <mat-icon matSuffix > email</mat-icon>
+            <mat-error *ngIf="registerForm.controls['emailRegister'].hasError('minlength')">
+              אימייל צריך להכיל לפחות 5 תווים
+            </mat-error>
+            <mat-error *ngIf="registerForm.controls['emailRegister'].hasError('maxlength')">
+              אימייל צריך להכיל מקסימום 80 תווים
+            </mat-error>
+            <mat-error *ngIf="registerForm.controls['emailRegister'].hasError('pattern')">
+              צריך להקליד מייל תקין
+            </mat-error>
+            <mat-error *ngIf="registerForm.controls['emailRegister'].hasError('required')">
+              חייב להקליד אימייל
+            </mat-error>
+          </mat-form-field>
+        </div>
+        <div>
+          <mat-form-field appearance="outline" color="warn">
+            <mat-label>מספר תעודת זהות</mat-label>
+            <input matInput type="text" required formControlName="tzRegister">
+
+            <mat-icon matSuffix>mode_edit</mat-icon>
+            <mat-error *ngIf="registerForm.controls['tzRegister'].hasError('maxlength')">
+              תעודת זהות צריך להכיל 9 ספרות
+            </mat-error>
+            <mat-error *ngIf="registerForm.controls['tzRegister'].hasError('pattern')">
+              צריך להקליד רק ספרות
+            </mat-error>
+            <mat-error *ngIf="registerForm.controls['tzRegister'].hasError('required')">
+              חייב להקליד תעודת זהות
+            </mat-error>
+            <mat-hint>כולל ספרת ביקורת</mat-hint>
+          </mat-form-field>
+        </div>
+        <div>
+          <mat-form-field appearance="outline" color="warn">
+            <mat-label>מספר טלפון</mat-label>
+            <input matInput type="tel" required formControlName="phone">
+            <mat-icon matSuffix>call</mat-icon>
+            <mat-error *ngIf="registerForm.controls['phone'].hasError('minlength')">
+              טלפון צריך להכיל לפחות 10 ספרות
+            </mat-error>
+            <mat-error *ngIf="registerForm.controls['phone'].hasError('maxlength')">
+              טלפון צריך להכיל מקסימום 14 ספרות
+            </mat-error>
+            <mat-error *ngIf="registerForm.controls['phone'].hasError('pattern')">
+              צריך להשתמש רק בספרות
+            </mat-error>
+            <mat-error *ngIf="registerForm.controls['phone'].hasError('required')">
+              חייב להקליד טלפון
+            </mat-error>
+          </mat-form-field>
+        </div>
+        <div>
+          <mat-form-field appearance="outline" color="warn">
+            <mat-label>כתובת</mat-label>
+            <textarea required matInput formControlName="adress"></textarea>
+            <mat-icon matSuffix>home</mat-icon>
+            <mat-error  *ngIf="registerForm.controls['adress'].hasError('required')">
+              חייב להקליד כתובת
+            </mat-error>
+            <mat-error  *ngIf="registerForm.controls['adress'].hasError('maxlength')">
+              כתובת צריכה להכיל מקסימום 255 תווים
+            </mat-error>
+            <mat-error  *ngIf="registerForm.controls['adress'].hasError('pattern')">
+              צריך להשתמש רק באותיות וספרות
+            </mat-error>
+          </mat-form-field>
+        </div>
+        <div>
+          <mat-form-field appearance="outline" color="warn">
+            <mat-label>עיר</mat-label>
+            <mat-select required formControlName="city">
+              <mat-option *ngFor="let cit of cities" [value]="cit.IDCity">{{cit.CityName}}</mat-option>
+            </mat-select>
+            <mat-icon matSuffix>location_city</mat-icon>
+            <mat-error *ngIf="registerForm.controls['city'].hasError('required')">
+                חייב לבחור עיר
+            </mat-error>
+          </mat-form-field>
+        </div>
+        <div>
+          <mat-form-field appearance="outline" color="warn">
+            <mat-label>סיסמה</mat-label>
+            <input matInput type="password" required [type]="hide1 ? 'password' : 'text'" formControlName="password">
+            <button mat-icon-button matSuffix type="button" (click)="hide1 = !hide1" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide1">
+              <mat-icon>{{hide1 ? 'visibility_off' : 'visibility'}}</mat-icon>
+            </button>
+            <mat-error *ngIf="registerForm.controls['password'].hasError('required')">
+              חייב להקליד סיסמה
+            </mat-error>
+            <mat-error *ngIf="registerForm.controls['password'].hasError('pattern')">
+              הסיסמה צריכה להכיל לפחות 8 תווים,הוא צריך להכיל לפחות אות גדולה,אות קטנה,תו מיוחד וספרה
+            </mat-error>
+          </mat-form-field>
+        </div>
+        <div>
+          <mat-form-field appearance="outline" color="warn">
+            <mat-label>אימות סיסמה</mat-label>
+            <input required matInput type="password" [type]="hide2 ? 'password' : 'text'" formControlName="confirmPassword">
+            <button mat-icon-button matSuffix type="button" (click)="hide2 = !hide2" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide2">
+              <mat-icon>{{hide2 ? 'visibility_off' : 'visibility'}}</mat-icon>
+            </button>
+            <mat-error *ngIf="registerForm.controls['confirmPassword'].hasError('required')">
+              חייב להקליד אימות סיסמה
+            </mat-error>
+            <mat-error *ngIf="registerForm.controls['confirmPassword'].hasError('matching')">
+              סיסמאות שונות
+            </mat-error>
+          </mat-form-field>
+        </div>
+        <div>
+          <mat-form-field appearance="outline" color="warn">
+            <mat-label>הערות</mat-label>
+            <textarea matInput formControlName="comments"></textarea>
+          </mat-form-field>
+        </div>
+        <div class="text-center"style="direction:rtl">
+          <button mat-flat-button color="primary"  type="submit" (click)="onSubmit()" [disabled]="!registerForm.valid" [routerLink]="['/SignIn']">הרשמה</button>
+          <button mat-flat-button color="primary" (click)="onReset()" type="reset">ביטול</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</main>
+<footer >
+  <a routerLink="/ContactUs"><button mat-button color="primary">צרו קשר</button></a>
+  <p>@HelpXPress 2022 by Dinah Cahen </p>
+</footer>

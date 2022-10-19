@@ -1,0 +1,35 @@
+*:not(mat-icon){
+  font-family: 'David Libre', serif;
+}
+
+.navbar{
+  justify-content: space-between;
+  direction: ltr;
+  margin-bottom: 50px;
+}
+a{
+  padding-right: 1rem;
+}
+.logonav{
+  width: 100px;
+}
+.form{
+  text-align: center;
+}
+.form-group{
+  text-align: center;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  border: solid rgb(204,146,59) 2px;
+}
+
+
+footer{
+  position:relative;
+  bottom: 0px;
+  width: 100%;
+  min-height: 50px;
+  height: 50px;
+  text-align: center;
+}

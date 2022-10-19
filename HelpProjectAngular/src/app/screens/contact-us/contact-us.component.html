@@ -1,0 +1,123 @@
+<header>
+  <mat-toolbar class="navbar">
+    <div *ngIf="!isLogged()">
+      <a routerLink="/Register"><button mat-button color="primary">הרשמה</button></a>
+      <a routerLink="/SignIn"><button mat-button color="primary">התחברות</button></a>
+    </div>
+    <div *ngIf="isLogged()==true">
+      <mat-toolbar class="navbar">
+        <div>
+          <button mat-button color="primary" [matMenuTriggerFor]="menu">{{getNameUser()}}
+            <mat-icon style="color:coral">account_circle</mat-icon>
+          </button>
+          <mat-menu #menu="matMenu">
+            <button mat-menu-item routerLink="/Dashboard">
+              <mat-icon>domain</mat-icon>
+              חזרה לדף ראשי
+            </button>
+            <button mat-menu-item routerLink="/UsersOffer">
+              <mat-icon> transfer_within_a_station</mat-icon>
+              לוח הצעות עזרה
+            </button>
+            <button mat-menu-item routerLink="/UsersNeed" >
+              <mat-icon>search</mat-icon>
+              לוח חיפושים עזרה
+            </button>
+            <button mat-menu-item (click)="onEditUser()">
+              <mat-icon>build</mat-icon>
+              עדכון פרטי משתמש
+            </button>
+            <button mat-menu-item routerLink="/ContactUs">
+              <mat-icon>help</mat-icon>
+              צור קשר
+            </button>
+            <button mat-menu-item routerLink="/LogOut">
+              <mat-icon>exit_to_app</mat-icon>
+              התנתקות
+            </button>
+          </mat-menu>
+        </div>
+      </mat-toolbar>
+    </div>
+    <a href="#"><img src="assets/logo.png" class="logonav"></a>
+  </mat-toolbar>
+</header>
+<main>
+  <h1 class="title">צרו קשר</h1>
+  <div class="parent-container d-flex">
+    <div class="container">
+      <div class="row">
+          <div class="col">
+            <div class="container-img">
+              <img src="assets/envelop.png">
+            </div>
+          </div>
+      </div>
+  </div>
+
+  <div class="container">
+      <div class="row">
+          <div class="col">
+            <div class="form-group">
+              <form [formGroup]="myContactForm">
+                <div>
+                  <mat-form-field appearance="outline" color="warn">
+                    <mat-label> שם</mat-label>
+                    <input matInput type="text" formControlName="name" >
+                    <mat-icon matSuffix> edit</mat-icon>
+                    <mat-error *ngIf="name.touched && name.errors">
+                      <span *ngIf="name.hasError('required') || name.hasError('minLength') || email.hasError('pattern') || name.hasError('maxLength')">
+                        צריך להקליט שם
+                      </span>
+                    </mat-error>
+                  </mat-form-field>
+                </div>
+                <div>
+                  <mat-form-field appearance="outline" color="warn">
+                    <mat-label> אימייל</mat-label>
+                    <input matInput type="email"  [email]="true" formControlName="email" >
+                    <mat-icon matSuffix> email</mat-icon>
+                    <mat-error *ngIf="email.touched && email.errors">
+                      <span *ngIf="email.hasError('required') || email.hasError('email') || email.hasError('pattern')">
+                        צריך להקליט מייל
+                      </span>
+                    </mat-error>
+                  </mat-form-field>
+                </div>
+                <div>
+                  <mat-form-field appearance="outline" color="warn">
+                    <mat-label> נושא</mat-label>
+                    <input matInput type="text" formControlName="subject" >
+                    <mat-icon matSuffix> edit</mat-icon>
+                    <mat-error *ngIf="subject.touched && subject.errors">
+                      <span *ngIf="subject.hasError('required')">
+                        צריך להקליט נושא פנייה
+                      </span>
+                    </mat-error>
+                  </mat-form-field>
+                </div>
+                <div>
+                  <mat-form-field appearance="outline" color="warn">
+                    <mat-label> ההודעה שלך</mat-label>
+                    <textarea matInput formControlName="body"></textarea>
+                    <mat-error *ngIf="body.touched && body.errors">
+                      <span *ngIf="body.hasError('required')">
+                        צריך להקליט נושא פנייה
+                      </span>
+                    </mat-error>
+                  </mat-form-field>
+                </div>
+                <div class="button-wrapper">
+                  <button mat-flat-button color="primary" type="button" (click)="onSubmit()" [disabled]="!myContactForm.valid" >שלח</button>
+                </div>
+              </form>
+            </div>
+          </div>
+      </div>
+    </div>
+  </div>
+</main>
+
+<footer >
+  <p>@HelpXPress 2022 by Dinah Cahen </p>
+</footer>

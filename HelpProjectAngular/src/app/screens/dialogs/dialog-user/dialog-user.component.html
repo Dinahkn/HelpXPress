@@ -1,0 +1,149 @@
+<h1 mat-dialog-title style="text-align: center;">{{nameForm}}</h1>
+<div mat-dialog-content >
+  <div class="container">
+    <form [formGroup]="userForm" id="myForm">
+      <div>
+        <mat-form-field appearance="outline" color="warn">
+          <mat-label>שם מלא</mat-label>
+          <input matInput type="text" required formControlName="FullName" >
+          <mat-icon matSuffix>mode_edit</mat-icon>
+          <mat-error *ngIf="userForm.controls['FullName'].hasError('minlength')">
+            חייב שיהיה לפחות 6 תווים
+          </mat-error>
+          <mat-error *ngIf="userForm.controls['FullName'].hasError('maxlength')">
+            חייב שיהיה מקסימום 40 תווים
+          </mat-error>
+          <mat-error *ngIf="userForm.controls['FullName'].hasError('pattern')">
+            צריך להקליד רק באותיות
+          </mat-error>
+          <mat-error *ngIf="userForm.controls['FullName'].hasError('required')">
+            חייב להקליד שם
+          </mat-error>
+        </mat-form-field>
+      </div>
+      <div>
+        <mat-form-field appearance="outline" color="warn">
+          <mat-label>אימייל</mat-label>
+          <input matInput type="email" required [email]="true" formControlName="Mail" >
+          <mat-icon matSuffix> email</mat-icon>
+          <mat-error *ngIf="userForm.controls['Mail'].hasError('minlength')">
+            חייב שיהיה לפחות 5 תווים
+          </mat-error>
+          <mat-error *ngIf="userForm.controls['Mail'].hasError('maxlength')">
+            אימייל צריך להכיל מקסימום 80 תווים
+          </mat-error>
+          <mat-error *ngIf="userForm.controls['Mail'].hasError('pattern')">
+            חייב להקליד אימייל תקין
+          </mat-error>
+          <mat-error *ngIf="userForm.controls['Mail'].hasError('required')">
+            חייב להקליד אימייל
+          </mat-error>
+        </mat-form-field>
+      </div>
+      <div>
+        <mat-form-field appearance="outline" color="warn">
+          <mat-label>מספר תעודת זהות</mat-label>
+          <input matInput type="text" required formControlName="TZ">
+          <mat-hint>כולל ספרת ביקורת</mat-hint>
+          <mat-icon matSuffix>mode_edit</mat-icon>
+          <mat-error *ngIf="userForm.controls['TZ'].hasError('minlength')">
+            תעודת זהות צריך להכיל 9 ספרות
+          </mat-error>
+          <mat-error *ngIf="userForm.controls['TZ'].hasError('pattern')">
+            צריך להקליד רק בספרות
+          </mat-error>
+          <mat-error *ngIf="userForm.controls['TZ'].hasError('required')">
+            חייב להקליד תעודת זהות
+          </mat-error>
+        </mat-form-field>
+      </div>
+      <div>
+        <mat-form-field appearance="outline" color="warn">
+          <mat-label>מספר טלפון</mat-label>
+          <input matInput type="tel" required formControlName="Phone">
+          <mat-icon matSuffix>call</mat-icon>
+          <mat-error *ngIf="userForm.controls['Phone'].hasError('minlength')">
+            טלפון צריך להכיל לפחות 10 ספרות
+          </mat-error>
+          <mat-error *ngIf="userForm.controls['Phone'].hasError('maxlength')">
+            טלפון צריך להכיל מקסימום 14 ספרות
+          </mat-error>
+          <mat-error *ngIf="userForm.controls['Phone'].hasError('pattern')">
+            צריך להשתמש רק בספרות
+          </mat-error>
+          <mat-error *ngIf="userForm.controls['Phone'].hasError('required')">
+            חייב להקליד טלפון
+          </mat-error>
+        </mat-form-field>
+      </div>
+      <div>
+        <mat-form-field appearance="outline" color="warn">
+          <mat-label>כתובת</mat-label>
+          <textarea matInput required formControlName="adress" id="adress"></textarea>
+          <mat-icon matSuffix>home</mat-icon>
+          <mat-error *ngIf="userForm.controls['adress'].hasError('required')">
+            חייב להקליד כתובת
+          </mat-error>
+          <mat-error *ngIf="userForm.controls['adress'].hasError('maxlength')">
+            כתובת צריכה להכיל מקסימום 255 תווים
+          </mat-error>
+          <mat-error *ngIf="userForm.controls['adress'].hasError('pattern')">
+            צריך להשתמש רק באותיות וספרות
+          </mat-error>
+        </mat-form-field>
+      </div>
+      <div>
+        <mat-form-field appearance="outline" color="warn">
+          <mat-label>עיר</mat-label>
+          <mat-select required formControlName="IDCity">
+            <mat-option *ngFor="let city of cities" [value]="city.IDCity">{{city.CityName}}</mat-option>
+          </mat-select>
+          <mat-icon matSuffix>location_city</mat-icon>
+          <mat-error *ngIf="userForm.controls['IDCity'].hasError('required')">
+            חייב לבחור עיר
+          </mat-error>
+        </mat-form-field>
+      </div>
+      <div>
+        <mat-form-field appearance="outline" color="warn">
+          <mat-label>סיסמה</mat-label>
+          <input matInput type="password" required [type]="hide ? 'password' : 'text'" formControlName="password">
+          <button mat-icon-button matSuffix type="button" (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+            <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+          </button>
+          <mat-error *ngIf="userForm.controls['password'].hasError('required')">
+            חייב להקליד סיסמה
+          </mat-error>
+          <mat-error *ngIf="userForm.controls['password'].hasError('pattern')">
+            הסיסמה צריכה להכיל לפחות 8 תווים,הוא צריך להכיל לפחות אות גדולה,אות קטטה,תו מיוחד וספרה
+          </mat-error>
+        </mat-form-field>
+      </div>
+      <div>
+        <mat-form-field appearance="outline" color="warn">
+          <mat-label>אימות סיסמה</mat-label>
+          <input matInput type="password" required [type]="hide ? 'password' : 'text'" formControlName="confirmPassword">
+          <button mat-icon-button matSuffix type="button" (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+            <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+          </button>
+          <mat-error *ngIf="userForm.controls['confirmPassword'].hasError('required')">
+              חייב להקליד אימות סיסמה
+          </mat-error>
+          <mat-error *ngIf="userForm.controls['confirmPassword'].hasError('matching')">
+            סיסמאות שונות
+          </mat-error>
+        </mat-form-field>
+      </div>
+      <div>
+        <mat-form-field appearance="outline" color="warn">
+          <mat-label>הערות</mat-label>
+          <textarea matInput formControlName="Comments"></textarea>
+        </mat-form-field>
+      </div>
+    </form>
+  </div>
+</div>
+<div mat-dialog-actions [align]="'start'">
+  <button mat-raised-button color="warn" mat-dialog-close>סגור</button>
+  <button mat-raised-button color="primary" [disabled]="!userForm.valid" (click)="addAdmin()">{{actionBtn}}</button>
+</div>

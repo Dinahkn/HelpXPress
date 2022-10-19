@@ -1,0 +1,280 @@
+<header>
+  <mat-toolbar class="navbar">
+    <div>
+      <button mat-button color="primary" [matMenuTriggerFor]="menu">{{getNameUser()}}
+        <mat-icon style="color:coral">account_circle</mat-icon>
+      </button>
+      <mat-menu #menu="matMenu">
+        <button mat-menu-item routerLink="/Dashboard">
+          <mat-icon>domain</mat-icon>
+          חזרה לדף ראשי
+        </button>
+        <button mat-menu-item routerLink="/UsersOffer">
+          <mat-icon> transfer_within_a_station</mat-icon>
+          לוח הצעות עזרה
+        </button>
+        <button mat-menu-item routerLink="/UsersNeed" >
+          <mat-icon>search</mat-icon>
+          לוח חיפושים עזרה
+        </button>
+        <button mat-menu-item (click)="onEditUser()">
+          <mat-icon>build</mat-icon>
+          עדכון פרטי משתמש
+        </button>
+        <button mat-menu-item routerLink="/ContactUs">
+          <mat-icon>help</mat-icon>
+          צור קשר
+        </button>
+        <button mat-menu-item routerLink="/LogOut">
+          <mat-icon>exit_to_app</mat-icon>
+          התנתקות
+        </button>
+      </mat-menu>
+    </div>
+    <a href="#"><img src="assets/logo.png" class="logonav"></a>
+  </mat-toolbar>
+</header>
+<main>
+  <div class="text-info">
+    <h2>במה את/ה צריך/ה עזרה?</h2>
+    <h6>לכל יום צריך לעשות טופס חדש</h6>
+  </div>
+  <div>
+    <mat-tab-group mat-align-tabs="center" >
+      <mat-tab label="ביביסיטר">
+        <mat-card class="bbsit">
+          <form class="form-bbsit" [formGroup]="needBabysitterForm" method="post">
+            <div>
+              <mat-form-field>
+                <mat-label style="font-weight: bold;color: black;">באיזה עיר אתה צריך?</mat-label>
+                <mat-select formControlName="cityNeedBabysitter" required>
+                  <mat-option *ngFor="let cit of cities" [value]="cit.IDCity">{{cit.CityName}}</mat-option>
+                </mat-select>
+                <mat-error *ngIf="needBabysitterForm.controls['cityNeedBabysitter'].hasError('required')">
+                  חייב לבחור עיר
+                </mat-error>
+              </mat-form-field>
+            </div>
+            <div>
+              <mat-form-field>
+                <mat-label style="font-weight: bold;color: black;">לתאריך</mat-label>
+                <input matInput [min]="minDate" [max]="maxDate" [matDatepicker]="dateBbsit" formControlName="dateNeedBabysitter">
+                <mat-datepicker-toggle [for]="dateBbsit" matSuffix></mat-datepicker-toggle>
+                <mat-datepicker #dateBbsit></mat-datepicker>
+                <mat-date-range-picker #picker></mat-date-range-picker>
+              </mat-form-field>
+            </div>
+            <div>
+              <mat-label style="font-size: medium;font-weight: bold;">מתי אתה צריך?</mat-label>
+              <section class="example-section" [formGroup]="sliceTimeBabysitter" style="font-weight: bold;" >
+                <p>
+                  <mat-checkbox formControlName="morning">
+                    <div style="padding-right:10px ;margin-top: 10px;">
+                      06:00 - 12:00
+                    </div>
+                  </mat-checkbox></p>
+                <p>
+                  <mat-checkbox formControlName="afternoon">
+                    <div style="padding-right:10px">
+                      12:00 - 18:00
+                    </div>
+                  </mat-checkbox>
+                </p>
+                <p>
+                  <mat-checkbox formControlName="evening">
+                    <div style="padding-right:10px">
+                      18:00 - 00:00
+                    </div>
+                  </mat-checkbox>
+                </p>
+                <p>
+                  <mat-checkbox formControlName="night">
+                    <div style="padding-right:10px">
+                      00:00 - 06:00
+                    </div>
+                  </mat-checkbox>
+                </p>
+              </section>
+            </div>
+            <div>
+              <mat-form-field>
+                <mat-label style="font-weight: bold;color: black;">הערות</mat-label>
+                <textarea matInput formControlName="Comments"></textarea>
+              </mat-form-field>
+            </div>
+            <br>
+            <div class="button-wrapper">
+              <button mat-flat-button color="primary"  type="submit" (click)="onSubmitSearchBabysitter()" [disabled]="!needBabysitterForm.valid" >חפש</button>
+            </div>
+          </form>
+        </mat-card>
+      </mat-tab>
+      <mat-tab label="נסיעה משותפת">
+        <mat-card class="carpool">
+           <form class="form-carpool" [formGroup]="needCarpoolForm" method="get">
+            <div>
+              <mat-form-field>
+                <mat-label style="font-weight: bold;color: black;">מאיזה עיר אתה צריך?</mat-label>
+                <mat-select formControlName="cityDepartureNeedCarpool" required>
+                  <mat-option *ngFor="let city of cities" [value]="city.IDCity">{{city.CityName}}</mat-option>
+                </mat-select>
+                <mat-error *ngIf="needCarpoolForm.controls['cityDepartureNeedCarpool'].hasError('required')">
+                  חייב לבחור עיר מוצא
+                </mat-error>
+              </mat-form-field>
+            </div>
+
+            <div>
+              <mat-form-field>
+                <mat-label style="font-weight: bold;color: black;">מאיזה כתובת? (אם ריק יכניס תחנה מרכזית)</mat-label>
+                <input matInput formControlName="adressDepartureNeedCarpool" type="text">
+              </mat-form-field>
+            </div>
+
+            <div>
+              <mat-form-field>
+                <mat-label style="font-weight: bold;color: black;">לאיזה עיר אתה צריך?</mat-label>
+                <mat-select formControlName="cityArrivalNeedCarpool" required>
+                  <mat-option *ngFor="let cit of cities" [value]="cit.IDCity">{{cit.CityName}}</mat-option>
+                </mat-select>
+                <mat-error *ngIf="needCarpoolForm.controls['cityArrivalNeedCarpool'].hasError('required')">
+                  חייב לבחור עיר יעד
+                </mat-error>
+              </mat-form-field>
+            </div>
+
+            <div>
+              <mat-form-field>
+                <mat-label style="font-weight: bold;color: black;">לאיזה כתובת? (אם ריק יכניס תחנה מרכזית)</mat-label>
+                <input matInput formControlName="adressArrivalNeedCarpool" type="text">
+              </mat-form-field>
+            </div>
+
+            <div>
+              <mat-form-field>
+                <mat-label style="font-weight: bold;color: black;">לאיזה תאריך אתה צריך? </mat-label>
+                <input matInput [min]="minDate" [max]="maxDate" [matDatepicker]="myDateTravel" formControlName="dateNeedCarpool">
+                <mat-datepicker-toggle [for]="myDateTravel" matSuffix></mat-datepicker-toggle>
+                <mat-datepicker #myDateTravel></mat-datepicker>
+                <mat-error *ngIf="needCarpoolForm.controls['dateNeedCarpool'].hasError('required')">
+                  חייב להכניס תאריך
+                </mat-error>
+              </mat-form-field>
+            </div>
+
+            <label style="font-weight: bold;color: black;">באיזה שעה?</label>
+            <div class="hour">
+              <ngx-timepicker-field id="hourDeparture" [format]="24" [defaultTime]="'00:00'" formControlName="hourDepartureNeedCarpool"></ngx-timepicker-field>
+            </div>
+            <div>
+              <mat-form-field>
+                <mat-label style="font-weight: bold;color: black;">הערות</mat-label>
+                <textarea matInput formControlName="Comments"></textarea>
+              </mat-form-field>
+            </div>
+            <br>
+            <div class="button-wrapper">
+              <button mat-flat-button color="primary"  type="submit" (click)="onSubmitSearchCarpool()" [disabled]="!needCarpoolForm.valid" >חפש</button>
+            </div>
+          </form>
+        </mat-card>
+      </mat-tab>
+      <mat-tab label="מורה פרטי">
+        <mat-card class="teacher">
+           <form class="form-teacher" [formGroup]="needTeacherForm" method="get">
+            <div>
+              <mat-form-field>
+                <mat-label style="font-weight: bold;color: black;">באיזה עיר אתה צריך?</mat-label>
+                <mat-select formControlName="cityNeedTeacher" required>
+                  <mat-option *ngFor="let cit of cities" [value]="cit.IDCity">{{cit.CityName}}</mat-option>
+                </mat-select>
+                <mat-error *ngIf="needTeacherForm.controls['cityNeedTeacher'].hasError('required')">
+                  חייב לבחור עיר
+                </mat-error>
+              </mat-form-field>
+            </div>
+
+            <div>
+              <mat-form-field>
+                <mat-label style="font-weight: bold;color: black;">לאיזה תאריך אתה צריך? </mat-label>
+                <input matInput [min]="minDate" [max]="maxDate" [matDatepicker]="myDateTeacher" formControlName="dateTeacher">
+                <mat-datepicker-toggle [for]="myDateTeacher" matSuffix></mat-datepicker-toggle>
+                <mat-datepicker #myDateTeacher></mat-datepicker>
+              </mat-form-field>
+            </div>
+
+            <mat-label style="font-size: medium;font-weight: bold;">מתי אתה צריך?</mat-label>
+            <section class="example-section" [formGroup]="sliceTimeTeacher" style="font-weight: bold;" >
+              <p>
+                <mat-checkbox formControlName="morning">
+                  <div style="padding-right:10px ;margin-top: 10px;">
+                    06:00 - 12:00
+                  </div>
+                </mat-checkbox></p>
+              <p>
+                <mat-checkbox formControlName="afternoon">
+                  <div style="padding-right:10px">
+                    12:00 - 18:00
+                  </div>
+                </mat-checkbox>
+              </p>
+              <p>
+                <mat-checkbox formControlName="evening">
+                  <div style="padding-right:10px">
+                    18:00 - 00:00
+                  </div>
+                </mat-checkbox>
+              </p>
+              <p>
+                <mat-checkbox formControlName="night">
+                  <div style="padding-right:10px">
+                    00:00 - 06:00
+                  </div>
+                </mat-checkbox>
+              </p>
+            </section>
+            <br>
+
+            <div>
+              <mat-form-field>
+                <mat-label style="font-weight: bold;color: black;">איזה מקצוע?</mat-label>
+                <mat-select formControlName="subjectNeedTeacher" required>
+                  <mat-option *ngFor="let subject of subjectsSchool" [value]="subject.IDSubject">{{subject.NameSubject}}</mat-option>
+                </mat-select>
+                <mat-error *ngIf="needTeacherForm.controls['subjectNeedTeacher'].hasError('required')">
+                  חייב לבחור מקצוע
+                </mat-error>
+              </mat-form-field>
+            </div>
+
+            <div>
+              <mat-form-field>
+                <mat-label style="font-weight: bold;color: black;">איזה כיתה?</mat-label>
+                <mat-select formControlName="classNeedTeacher" required>
+                  <mat-option *ngFor="let level of levelsSchool" [value]="level.IDLevel">{{level.NameLevel}}</mat-option>
+                </mat-select>
+                <mat-error *ngIf="needTeacherForm.controls['classNeedTeacher'].hasError('required')">
+                  חייב לבחור כיתה
+                </mat-error>
+              </mat-form-field>
+            </div>
+            <div>
+              <mat-form-field>
+                <mat-label style="font-weight: bold;color: black;">הערות</mat-label>
+                <textarea matInput formControlName="Comments"></textarea>
+              </mat-form-field>
+            </div>
+
+            <div class="button-wrapper">
+              <button mat-flat-button color="primary"  type="submit" (click)="onSubmitSearchTeacher()" [disabled]="!needTeacherForm.valid">חפש</button>
+            </div>
+          </form>
+        </mat-card>
+      </mat-tab>
+    </mat-tab-group>
+  </div>
+</main>
+<footer >
+  <a routerLink="/ContactUs"><button mat-button color="primary">צרו קשר</button></a>
+  <p>@HelpXPress 2022 by Dinah Cahen </p>
+</footer>

@@ -1,0 +1,67 @@
+<h1 mat-dialog-title style="text-align: center;">{{nameForm}}</h1>
+<div mat-dialog-content >
+  <div class="container">
+    <form class="form-bbsit" [formGroup]="needBabysitterForm" id="myForm">
+      <div>
+        <mat-form-field>
+          <mat-label style="font-weight: bold;color: black;">עיר</mat-label>
+          <mat-select formControlName="IDCity" required>
+            <mat-option *ngFor="let cit of cities" [value]="cit.IDCity">{{cit.CityName}}</mat-option>
+          </mat-select>
+          <mat-error *ngIf="needBabysitterForm.controls['IDCity'].hasError('required')">
+             חייב לבחור עיר
+          </mat-error>
+        </mat-form-field>
+      </div>
+      <div>
+        <mat-form-field>
+          <mat-label style="font-weight: bold;color: black;">תאריך אפשרי</mat-label>
+          <input matInput [min]="minDate" [max]="maxDate" [matDatepicker]="dateBbsit" formControlName="DateBabysitter">
+          <mat-datepicker-toggle [for]="dateBbsit" matSuffix></mat-datepicker-toggle>
+          <mat-datepicker #dateBbsit></mat-datepicker>
+          <mat-date-range-picker #picker></mat-date-range-picker>
+        </mat-form-field>
+      </div>
+      <mat-label style="font-weight: bold;color: black;">מתי אתה צריך?</mat-label>
+      <section class="example-section" [formGroup]="sliceTimeBabysitter" style="font-weight: bold;" >
+        <p>
+          <mat-checkbox formControlName="TimeSlice1">
+            <div style="padding-right:10px ;margin-top: 10px;">
+              06:00 - 12:00
+            </div>
+          </mat-checkbox></p>
+        <p>
+          <mat-checkbox formControlName="TimeSlice2">
+            <div style="padding-right:10px">
+              12:00 - 18:00
+            </div>
+          </mat-checkbox>
+        </p>
+        <p>
+          <mat-checkbox formControlName="TimeSlice3">
+            <div style="padding-right:10px">
+              18:00 - 00:00
+            </div>
+          </mat-checkbox>
+        </p>
+        <p>
+          <mat-checkbox formControlName="TimeSlice4">
+            <div style="padding-right:10px">
+              00:00 - 06:00
+            </div>
+          </mat-checkbox>
+        </p>
+      </section>
+      <br>
+      <div>
+        <mat-form-field>
+          <mat-label style="font-weight: bold;color: black;">הערות</mat-label>
+          <textarea matInput formControlName="Comments"></textarea>
+        </mat-form-field>
+      </div>
+      <div class="button-wrapper">
+        <button mat-flat-button color="primary"  type="submit" (click)="updateNeedBabysitter()" >{{actionBtn}}</button>
+      </div>
+    </form>
+  </div>
+</div>

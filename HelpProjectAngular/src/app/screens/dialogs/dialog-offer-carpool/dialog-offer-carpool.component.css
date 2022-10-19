@@ -1,0 +1,16 @@
+*{
+  font-family: 'David Libre', serif;
+}
+*:not(mat-icon){
+  font-family: 'David Libre', serif;
+}
+
+.form-carpool{
+  direction: rtl;
+  text-align: center;
+  border: solid rgb(204, 146, 59) 2px;
+  justify-content: center;
+  align-items: center;
+  width: min-content;
+}
+

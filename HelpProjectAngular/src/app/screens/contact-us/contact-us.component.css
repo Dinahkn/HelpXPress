@@ -1,0 +1,62 @@
+
+*:not(mat-icon){
+  font-family: 'David Libre', serif;
+}
+.navbar{
+  justify-content: space-between;
+  direction: ltr;
+  margin-bottom: 30px;
+}
+a{
+  padding-right: 1rem;
+}
+.logonav{
+  width: 100px;
+}
+
+.title{
+  text-align: center;
+  padding-top: 10px;
+}
+.container-img{
+  direction: rtl;
+  position:absolute;
+  padding-left: 50%;
+}
+
+form{
+  text-align:justify;
+}
+.form-group{
+  text-align: center;
+  align-items: center;
+  justify-content: center;
+  padding-left: 30%;
+  padding-top: 20px;
+  position: fixed;
+
+}
+
+textarea{
+	height:205px;
+	margin-bottom:10px;
+	width:100%;
+  padding-left:2%;
+  padding-right:2%;
+  padding-top:10px;
+  padding-bottom:5px;
+	color: #727272;
+	background-color: azure;
+  border-radius: 5px 5px 5px 5px;
+}
+
+footer{
+  position:fixed;
+  bottom: 0px;
+  width: 100%;
+  min-height: 30px;
+  height: 10px;
+  text-align: center;
+}
+
+

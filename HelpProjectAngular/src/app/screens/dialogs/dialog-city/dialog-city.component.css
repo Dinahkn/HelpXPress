@@ -1,0 +1,14 @@
+*{
+  font-family: 'David Libre', serif;
+}
+*:not(mat-icon){
+  font-family: 'David Libre', serif;
+}
+
+#myForm{
+  direction: ltr;
+  justify-content: center;
+  text-align: center;
+  padding-top: 15px;
+  padding-bottom: 15px;
+}

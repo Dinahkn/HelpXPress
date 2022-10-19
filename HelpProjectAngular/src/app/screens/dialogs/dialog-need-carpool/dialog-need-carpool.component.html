@@ -1,0 +1,68 @@
+<h1 mat-dialog-title style="text-align: center;">{{nameForm}}</h1>
+<div mat-dialog-content >
+  <div class="container">
+    <form class="form-carpool" [formGroup]="needCarpoolForm">
+      <div>
+        <mat-form-field>
+          <mat-label style="font-weight: bold;color: black;">מאיזה עיר?</mat-label>
+          <mat-select formControlName="IDCityDeparture" required>
+            <mat-option *ngFor="let cit of cities" [value]="cit.IDCity">{{cit.CityName}}</mat-option>
+          </mat-select>
+          <mat-error *ngIf="needCarpoolForm.controls['IDCityDeparture'].hasError('required')">
+               חייב לבחור עיר מוצא
+          </mat-error>
+        </mat-form-field>
+      </div>
+      <div>
+        <mat-form-field>
+          <mat-label style="font-weight: bold;color: black;">מאיזה כתובת? (אם ריק יכניס תחנה מרכזית)</mat-label>
+          <input matInput formControlName="adressDepartureNeedCarpool" id="adressDeparture" type="text">
+        </mat-form-field>
+      </div>
+      <div>
+        <mat-form-field>
+          <mat-label style="font-weight: bold;color: black;">לאיזה עיר?</mat-label>
+          <mat-select formControlName="IDCityArrival" required>
+            <mat-option *ngFor="let cit of cities" [value]="cit.IDCity">{{cit.CityName}}</mat-option>
+          </mat-select>
+          <mat-error *ngIf="needCarpoolForm.controls['IDCityArrival'].hasError('required')">
+               חייב לבחור עיר יעד
+          </mat-error>
+        </mat-form-field>
+      </div>
+      <div>
+        <mat-form-field>
+          <mat-label style="font-weight: bold;color: black;">לאיזה כתובת? (אם ריק יכניס תחנה מרכזית)</mat-label>
+          <input matInput formControlName="adressArrivalNeedCarpool" id="adressArrival" type="text">
+        </mat-form-field>
+      </div>
+      <div>
+        <mat-form-field>
+          <mat-label style="font-weight: bold;color: black;">איזה תאריך?</mat-label>
+          <input matInput [min]="minDate" [max]="maxDate" [matDatepicker]="myDateTravel" formControlName="dateCarpool" required>
+          <mat-datepicker-toggle [for]="myDateTravel" matSuffix></mat-datepicker-toggle>
+          <mat-datepicker #myDateTravel></mat-datepicker>
+          <mat-error *ngIf="needCarpoolForm.controls['dateCarpool'].hasError('required')">
+               חייב לבחור תאריך
+          </mat-error>
+        </mat-form-field>
+      </div>
+      <div>
+        <mat-form-field>
+          <mat-label style="font-weight: bold;color:black">באיזה שעה?</mat-label>
+          <input matInput type="text" formControlName="hourDepartureCarpool">
+        </mat-form-field>
+      </div>
+      <div>
+        <mat-form-field>
+          <mat-label style="font-weight: bold;color: black;">הערות</mat-label>
+          <textarea matInput formControlName="Comments"></textarea>
+        </mat-form-field>
+      </div>
+
+      <div class="button-wrapper">
+        <button mat-flat-button color="primary"  type="submit" (click)="updateNeedCarpool()">{{actionBtn}}</button>
+      </div>
+    </form>
+  </div>
+</div>

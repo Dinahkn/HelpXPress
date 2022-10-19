@@ -1,0 +1,60 @@
+*:not(mat-icon){
+  font-family: 'David Libre', serif;
+}
+.navbar{
+  justify-content: space-between;
+  direction: ltr;
+  margin-bottom: 50px;
+}
+a{
+  padding-right: 1rem;
+}
+.logonav{
+  width: 100px;
+}
+
+table {
+  direction: rtl;
+  width: auto;
+  text-align: center;
+  justify-content: center;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  padding-left: 15px;
+  padding-right: 15px;
+  background-color:antiquewhite;
+}
+th.mat-header-cell {
+  padding-left: 15px;
+  padding-right: 15px;
+  width: auto;
+  text-align: center;
+  justify-content: center;
+  margin-left: auto;
+  margin-right: auto;
+  font-weight: bold;
+  font-size: medium;
+  color: black;
+}
+.buttonDecision{
+  background-color: antiquewhite;border: 0cm;
+}
+mat-paginator {
+  direction: ltr;
+  text-align: center;
+  margin: 0 auto;
+  display: flex;
+  justify-content: center;
+}
+
+footer{
+  position: relative;
+  bottom: 0px;
+  width: 100%;
+  min-height: 50px;
+  height: 50px;
+  text-align: center;
+}
+

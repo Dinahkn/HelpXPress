@@ -1,0 +1,51 @@
+<header>
+  <mat-toolbar class="navbar">
+    <div>
+      <a routerLink="/Register"><button mat-button  color="primary">הרשמה</button></a>
+    </div>
+    <a href="#"><img src="assets/logo.png" class="logonav"></a>
+  </mat-toolbar>
+</header>
+<main>
+  <div class="form-group">
+    <h1>התחברות</h1>
+    <form [formGroup]="signInForm" method="post">
+      <div>
+        <mat-form-field appearance="outline" color="warn">
+          <mat-label> אימייל</mat-label>
+          <input matInput type="email" id="eMail" [email]="true" formControlName="eMailUser" >
+          <mat-icon matSuffix> email</mat-icon>
+          <mat-error *ngFor="let validation of validation_msgs.emailControl">
+            <div *ngIf="signInForm.controls['eMailUser'].hasError(validation.type)">
+              {{validation.message}}
+            </div>
+          </mat-error>
+        </mat-form-field>
+      </div>
+      <div>
+        <mat-form-field appearance="outline" color="warn">
+          <mat-label>סיסמה</mat-label>
+          <input matInput type="password" required formControlName="passWordUser" [type]="hide ? 'password' : 'text'">
+          <button mat-icon-button matSuffix type="button" (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+            <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+          </button>
+          <mat-error *ngFor="let validation of validation_msgs.passwordControl">
+            <div *ngIf="signInForm.controls['passWordUser'].hasError(validation.type)">
+              {{validation.message}}
+            </div>
+          </mat-error>
+        </mat-form-field>
+      </div>
+      <div class="button-wrapper">
+        <button mat-flat-button color="primary" type="button" (click)="onSubmit()" [disabled]="!signInForm.valid" >שלח</button>
+      </div>
+    </form>
+    <div style=" direction: rtl;">
+      <a routerLink="/ForgotPassword">שכרת סיסמה?</a>
+    </div>
+  </div>
+</main>
+<footer >
+  <a routerLink="/ContactUs"><button mat-button color="primary">צרו קשר</button></a>
+  <p>@HelpXPress 2022 by Dinah Cahen </p>
+</footer>

@@ -1,0 +1,16 @@
+<h1 mat-dialog-title style="text-align: center;">{{nameForm}}</h1>
+<div mat-dialog-content>
+  <form [formGroup]="subjectForm" id="myForm">
+    <mat-form-field appearance="outline">
+      <mat-label>שם מקצוע</mat-label>
+      <input formControlName="NameSubject" matInput placeholder="מקצוע">
+      <mat-error *ngIf="subjectForm.controls['NameSubject'].hasError('required')">
+         חייב להקליד מקצוע
+      </mat-error>
+    </mat-form-field>
+  </form>
+</div>
+<div mat-dialog-actions [align]="'start'">
+  <button mat-raised-button color="warn" mat-dialog-close>סגור</button>
+  <button mat-raised-button color="primary" (click)="addSubject()">{{actionBtn}}</button>
+</div>

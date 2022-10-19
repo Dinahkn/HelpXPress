@@ -1,0 +1,29 @@
+*{
+  font-family: 'David Libre', serif;
+}
+*:not(mat-icon){
+  font-family: 'David Libre', serif;
+}
+.form-teacher{
+  direction: rtl;
+  text-align: center;
+  border: solid rgb(204, 146, 59) 2px;
+  justify-content: center;
+  align-items: center;
+  width: min-content;
+}
+.example-section{
+  margin: 12px 0;
+  direction: ltr;
+  text-align: center;
+}
+/* overwrite the checkbox background*/
+::ng-deep .mat-checkbox-checked .mat-checkbox-background,
+.mat-checkbox-indeterminate .mat-checkbox-background {
+  background-color: rgb(58, 12, 131) !important;
+}
+
+/* overwrite the ripple overlay on hover and click*/
+::ng-deep .mat-checkbox:not(.mat-checkbox-disabled) .mat-checkbox-ripple .mat-ripple-element {
+  background-color: rgb(58, 12, 131) !important;
+}

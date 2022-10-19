@@ -1,0 +1,46 @@
+<header>
+  <mat-toolbar class="navbar">
+    <div *ngIf="!isLogged()">
+      <a routerLink="/Register"><button mat-button color="primary">הרשמה</button></a>
+      <a routerLink="/SignIn"><button mat-button color="primary">התחברות</button></a>
+    </div>
+    <div *ngIf="isLogged()">
+      <a routerLink="/Dashboard"><button mat-button color="primary">לוח ראשי</button></a>
+      <a routerLink="/LogOut"><button mat-button color="primary">התנתקות</button></a>
+    </div>
+    <a href="#"><img src="assets/logo.png" class="logonav"></a>
+  </mat-toolbar>
+</header>
+<main>
+  <div>
+    <p class="intro">
+      שלום
+      <br>
+      ברוכים הבאים לאתר "עזרה נט".
+      <br>
+      אתם יכולים למצוא ביביסיטר,מורה פרטי או נסיעה משותפת.
+      אם יש לכם רעיון לשרותים אחרים תעדכנו אותנו דרך הדף קשר.
+      <br>
+      תהנו!!
+    </p>
+  </div>
+  <br>
+  <div class="container">
+    <button class="btn" (click)="seeBabysitters()" class="backBbsit">
+      רשימת ביביסטרים
+    </button>
+    <button class="btn" (click)="seeTeachers()" class="backTeacher">
+      רשימת מורים פרטיים
+    </button>
+    <button class="btn" (click)="seeCarpools()" class="backCarpool">
+      רשימת נהגים
+    </button>
+  </div>
+</main>
+<footer >
+  <a routerLink="/ContactUs"><button mat-button color="primary">צרו קשר</button></a>
+  <p>@HelpXPress 2022 by Dinah Cahen </p>
+</footer>
+
+
+

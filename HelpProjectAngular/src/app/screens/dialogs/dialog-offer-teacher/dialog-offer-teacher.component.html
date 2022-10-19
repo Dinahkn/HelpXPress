@@ -1,0 +1,113 @@
+<h1 mat-dialog-title style="text-align: center;">{{nameForm}}</h1>
+<div mat-dialog-content>
+  <div class="container">
+    <form class="form-teacher" [formGroup]="offerTeacherForm">
+      <div>
+        <mat-form-field>
+          <mat-label style="font-weight: bold;color: black;">באיזה עיר?</mat-label>
+          <mat-select formControlName="IDCity" required>
+            <mat-option *ngFor="let cit of cities" [value]="cit.IDCity">{{cit.CityName}}</mat-option>
+          </mat-select>
+          <mat-error *ngIf="offerTeacherForm.controls['IDCity'].hasError('required')">
+             חייב לבחור עיר
+          </mat-error>
+        </mat-form-field>
+      </div>
+      <div>
+        <mat-form-field>
+          <mat-label style="font-weight: bold;color: black;">איזה תאריך אתה יכול?</mat-label>
+          <input matInput [min]="minDate" [max]="maxDate" [matDatepicker]="myDateTeacher" formControlName="DatePossible">
+          <mat-datepicker-toggle [for]="myDateTeacher" matSuffix></mat-datepicker-toggle>
+          <mat-datepicker #myDateTeacher></mat-datepicker>
+        </mat-form-field>
+      </div>
+      <mat-label style="font-weight: bold;color: black;">מתי אתה יכול?</mat-label>
+      <section class="example-section" [formGroup]="sliceTimeTeacher" style="font-weight: bold;" >
+        <p>
+          <mat-checkbox formControlName="TimeSlice1">
+            <div style="padding-right:10px ;margin-top: 10px;">
+              06:00 - 12:00
+            </div>
+          </mat-checkbox></p>
+        <p>
+          <mat-checkbox formControlName="TimeSlice2">
+            <div style="padding-right:10px">
+              12:00 - 18:00
+            </div>
+          </mat-checkbox>
+        </p>
+        <p>
+          <mat-checkbox formControlName="TimeSlice3">
+            <div style="padding-right:10px">
+              18:00 - 00:00
+            </div>
+          </mat-checkbox>
+        </p>
+        <p>
+          <mat-checkbox formControlName="TimeSlice4">
+            <div style="padding-right:10px">
+              00:00 - 06:00
+            </div>
+          </mat-checkbox>
+        </p>
+      </section>
+      <br>
+      <div>
+        <mat-form-field>
+          <mat-label style="font-weight: bold;color: black;">איזה מקצוע?</mat-label>
+          <mat-select formControlName="IDSubject" required>
+            <mat-option *ngFor="let subject of subjectsSchool" [value]="subject.IDSubject">{{subject.NameSubject}}</mat-option>
+          </mat-select>
+          <mat-error *ngIf="offerTeacherForm.controls['IDSubject'].hasError('required')">
+             חייב לבחור מקצוע
+          </mat-error>
+        </mat-form-field>
+      </div>
+      <div>
+        <mat-form-field>
+          <mat-label style="font-weight: bold;color: black;">איזה כיתה?</mat-label>
+          <mat-select formControlName="IDLevel" required>
+            <mat-option *ngFor="let level of levelsSchool" [value]="level.IDLevel">{{level.NameLevel}}</mat-option>
+          </mat-select>
+          <mat-error *ngIf="offerTeacherForm.controls['IDLevel'].hasError('required')">
+             חייב לבחור כיתה
+          </mat-error>
+        </mat-form-field>
+      </div>
+      <div>
+        <mat-form-field>
+          <mat-label style="font-weight: bold;color: black;">שנות ניסיון</mat-label>
+          <input matInput type="number" required formControlName="YearsExperience" >
+          <mat-error *ngIf="offerTeacherForm.controls['YearsExperience'].hasError('required')">
+             חייב להקליד שנות ניסיון
+          </mat-error>
+          <mat-error *ngIf="offerTeacherForm.controls['YearsExperience'].hasError('min')">
+            חייב להקליד מספר גדול או שווה מ0
+          </mat-error>
+          <mat-error *ngIf="offerTeacherForm.controls['YearsExperience'].hasError('pattern')">
+            חייב להקליד רק ספרות
+          </mat-error>
+        </mat-form-field>
+      </div>
+      <div>
+        <mat-form-field>
+          <mat-label style="font-weight: bold;color: black;">מחיר</mat-label>
+          <input matInput  type="number" required formControlName="Price" >
+          <mat-error *ngIf="offerTeacherForm.controls['Price'].hasError('required')">
+            חייב להקליד את המחיר לשעה
+          </mat-error>
+          <mat-error *ngIf="offerTeacherForm.controls['Price'].hasError('min')">
+            חייב להקליד מספר גדול מ0
+          </mat-error>
+          <mat-error *ngIf="offerTeacherForm.controls['Price'].hasError('pattern')">
+            חייב להקליד רק ספרות
+          </mat-error>
+        </mat-form-field>
+      </div>
+
+      <div class="button-wrapper">
+        <button mat-flat-button color="primary"  type="submit" (click)="updateTeacher()">{{actionBtn}}</button>
+      </div>
+    </form>
+  </div>
+</div>

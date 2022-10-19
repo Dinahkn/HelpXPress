@@ -1,0 +1,10 @@
+/* You can add global styles to this file, and also import other style files */
+html, body { height: 100%; background-color: azure !important;}
+*body { margin: 0; font-family: 'David Libre', serif;font-size: large}
+.timepicker-overlay {
+  z-index: 10000000 !important;
+}
+
+.timepicker-backdrop-overlay {
+  z-index: 10000000 !important;
+}

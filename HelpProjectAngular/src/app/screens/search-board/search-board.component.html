@@ -1,0 +1,268 @@
+<header>
+  <mat-toolbar class="navbar">
+    <div>
+      <button mat-button color="primary" [matMenuTriggerFor]="menu">{{getNameUser()}}
+        <mat-icon style="color:coral">account_circle</mat-icon>
+      </button>
+      <mat-menu #menu="matMenu">
+        <button mat-menu-item routerLink="/Dashboard">
+          <mat-icon>domain</mat-icon>
+          חזרה לדף ראשי
+        </button>
+        <button mat-menu-item routerLink="/UsersOffer">
+          <mat-icon> transfer_within_a_station</mat-icon>
+          לוח הצעות עזרה
+        </button>
+        <button mat-menu-item routerLink="/UsersNeed" >
+          <mat-icon>search</mat-icon>
+          לוח חיפושים עזרה
+        </button>
+        <button mat-menu-item (click)="onEditUser()">
+          <mat-icon>build</mat-icon>
+          עדכון פרטי משתמש
+        </button>
+        <button mat-menu-item routerLink="/ContactUs">
+          <mat-icon>help</mat-icon>
+          צור קשר
+        </button>
+        <button mat-menu-item routerLink="/LogOut">
+          <mat-icon>exit_to_app</mat-icon>
+          התנתקות
+        </button>
+      </mat-menu>
+    </div>
+    <a href="#"><img src="assets/logo.png" class="logonav"></a>
+  </mat-toolbar>
+</header>
+<main>
+  <mat-tab-group style="direction: rtl;align-items: center;">
+    <mat-tab>
+      <ng-template mat-tab-label>זקוק לביביסיטר</ng-template>
+      <div class="mat-elevation-z8">
+        <table mat-table  [dataSource]="dataSourceNeedBabysitters" #needBabysitterSort="matSort" matSort>
+          <ng-container matColumnDef="IDCity">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header >מספר עיר</th>
+            <td mat-cell *matCellDef="let needBbsit">{{needBbsit.IDCity}}</td>
+          </ng-container>
+          <ng-container matColumnDef="City">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>עיר</th>
+            <td mat-cell *matCellDef="let needBbsit">{{needBbsit.City}}</td>
+          </ng-container>
+          <ng-container matColumnDef="DateBabysitter">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>תאריך</th>
+            <td mat-cell *matCellDef="let needBbsit">{{needBbsit.DateBabysitter|date:'shortDate'}}</td>
+          </ng-container>
+          <ng-container matColumnDef="TimeSlice1">
+            <th mat-header-cell *matHeaderCellDef>06:00-12:00</th>
+            <td mat-cell *matCellDef="let needBbsit">
+              <div *ngIf="needBbsit.TimeSlice1">
+                <mat-icon style="color:green">check</mat-icon>
+              </div>
+              <div *ngIf="!needBbsit.TimeSlice1">
+                <mat-icon style="color:red">close</mat-icon>
+              </div>
+            </td>
+          </ng-container>
+          <ng-container matColumnDef="TimeSlice2">
+            <th mat-header-cell *matHeaderCellDef>12:00-18:00</th>
+            <td mat-cell *matCellDef="let needBbsit">
+              <div *ngIf="needBbsit.TimeSlice2">
+                <mat-icon style="color:green">check</mat-icon>
+              </div>
+              <div *ngIf="!needBbsit.TimeSlice2">
+                <mat-icon style="color:red">close</mat-icon>
+              </div>
+            </td>
+          </ng-container>
+          <ng-container matColumnDef="TimeSlice3">
+            <th mat-header-cell *matHeaderCellDef>18:00-00:00</th>
+            <td mat-cell *matCellDef="let needBbsit">
+              <div *ngIf="needBbsit.TimeSlice3">
+                <mat-icon style="color:green">check</mat-icon>
+              </div>
+              <div *ngIf="!needBbsit.TimeSlice3">
+                <mat-icon style="color:red">close</mat-icon>
+              </div>
+            </td>
+          </ng-container>
+          <ng-container matColumnDef="TimeSlice4">
+            <th mat-header-cell *matHeaderCellDef>00:00-06:00</th>
+            <td mat-cell *matCellDef="let needBbsit">
+              <div *ngIf="needBbsit.TimeSlice4">
+                <mat-icon style="color:green">check</mat-icon>
+              </div>
+              <div *ngIf="!needBbsit.TimeSlice4">
+                <mat-icon style="color:red">close</mat-icon>
+              </div>
+            </td>
+          </ng-container>
+          <ng-container matColumnDef="Comments">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>הערות</th>
+            <td mat-cell *matCellDef="let needBbsit">{{needBbsit.Comments}}</td>
+          </ng-container>
+          <ng-container matColumnDef="actionsBtn">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>פעולות</th>
+            <td mat-cell *matCellDef="let needBbsit">
+              <button class="buttonDecision" (click)="onEditNeedBabysitter(needBbsit)">
+                <mat-icon style="color: cyan">open_in_new</mat-icon>
+              </button>
+              <button class="buttonDecision" (click)="onDeleteNeedBabysitter(needBbsit.IDNeedBabysitter)">
+                <mat-icon style="color: red">delete_outline</mat-icon>
+              </button>
+            </td>
+          </ng-container>
+          <tr mat-header-row *matHeaderRowDef="displayColumnNeedBabysitter"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayColumnNeedBabysitter;"></tr>
+        </table>
+        <mat-paginator #needBabysitterPaginator [pageSizeOptions]="[5, 10, 25, 100]" aria-label="Select page of need babysitters"></mat-paginator>
+      </div>
+    </mat-tab>
+    <mat-tab>
+      <ng-template mat-tab-label>זקוק לנסיעה משותפת</ng-template>
+      <div class="mat-elevation-z8">
+        <table mat-table [dataSource]="dataSourceNeedCarpool"  #needCarpoolSort="matSort" matSort>
+          <ng-container matColumnDef="IDCityDeparture">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header >מספר עיר מוצא</th>
+            <td mat-cell *matCellDef="let needCarpool">{{needCarpool.IDCityDeparture}}</td>
+          </ng-container>
+          <ng-container matColumnDef="CityDeparture">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>עיר המוצא</th>
+            <td mat-cell *matCellDef="let needCarpool">{{needCarpool.CityDeparture}}</td>
+          </ng-container>
+          <ng-container matColumnDef="IDCityArrival">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header >מספר עיר מוצא</th>
+            <td mat-cell *matCellDef="let needCarpool">{{needCarpool.IDCityArrival}}</td>
+          </ng-container>
+          <ng-container matColumnDef="CityArrival">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>עיר ההגעה</th>
+            <td mat-cell *matCellDef="let needCarpool">{{needCarpool.CityArrival}}</td>
+          </ng-container>
+          <ng-container matColumnDef="DateHourDeparture">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>תאריך</th>
+            <td mat-cell *matCellDef="let needCarpool">{{needCarpool.DateHourDeparture|date:'short':'IST'}}</td>
+          </ng-container>
+          <ng-container matColumnDef="Comments">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>הערות</th>
+            <td mat-cell *matCellDef="let needCarpool">{{needCarpool.Comments}}</td>
+          </ng-container>
+          <ng-container matColumnDef="actionsBtn">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>פעולות</th>
+            <td mat-cell *matCellDef="let needCarpool">
+              <button class="buttonDecision" (click)="onEditNeedCarpool(needCarpool)">
+                <mat-icon style="color: cyan">open_in_new</mat-icon>
+              </button>
+              <button class="buttonDecision" (click)="onDeleteNeedCarpool(needCarpool.IDNeedCarpool)">
+                <mat-icon style="color: red">delete_outline</mat-icon>
+              </button>
+            </td>
+          </ng-container>
+          <tr mat-header-row *matHeaderRowDef="displayColumnNeedCarpool"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayColumnNeedCarpool;"></tr>
+
+        </table>
+        <mat-paginator #needCarpoolPaginator [pageSizeOptions]="[5, 10, 25, 100]" aria-label="Select page of need carpool"></mat-paginator>
+      </div>
+    </mat-tab>
+    <mat-tab>
+      <ng-template mat-tab-label>זקוק למורה פרטי</ng-template>
+      <div class="mat-elevation-z8">
+        <table mat-table  [dataSource]="dataSourceNeedTeacher" #needTeacherSort="matSort" matSort>
+          <ng-container matColumnDef="IDCity">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header >מספר עיר</th>
+            <td mat-cell *matCellDef="let needTeacher">{{needTeacher.IDCity}}</td>
+          </ng-container>
+          <ng-container matColumnDef="City">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>עיר המוצא</th>
+            <td mat-cell *matCellDef="let needTeacher">{{needTeacher.City}}</td>
+          </ng-container>
+          <ng-container matColumnDef="DatePossible">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>תאריך</th>
+            <td mat-cell *matCellDef="let needTeacher">{{needTeacher.DatePossible|date:'shortDate'}}</td>
+          </ng-container>
+          <ng-container matColumnDef="TimeSlice1">
+            <th mat-header-cell *matHeaderCellDef>06:00-12:00</th>
+            <td mat-cell *matCellDef="let needTeacher">
+              <div *ngIf="needTeacher.TimeSlice1">
+                <mat-icon style="color:green">check</mat-icon>
+              </div>
+              <div *ngIf="!needTeacher.TimeSlice1">
+                <mat-icon style="color:red">close</mat-icon>
+              </div>
+            </td>
+          </ng-container>
+          <ng-container matColumnDef="TimeSlice2">
+            <th mat-header-cell *matHeaderCellDef>12:00-18:00</th>
+            <td mat-cell *matCellDef="let needTeacher">
+              <div *ngIf="needTeacher.TimeSlice2">
+                <mat-icon style="color:green">check</mat-icon>
+              </div>
+              <div *ngIf="!needTeacher.TimeSlice2">
+                <mat-icon style="color:red">close</mat-icon>
+              </div>
+            </td>
+          </ng-container>
+          <ng-container matColumnDef="TimeSlice3">
+            <th mat-header-cell *matHeaderCellDef>18:00-00:00</th>
+            <td mat-cell *matCellDef="let needTeacher">
+              <div *ngIf="needTeacher.TimeSlice3">
+                <mat-icon style="color:green">check</mat-icon>
+              </div>
+              <div *ngIf="!needTeacher.TimeSlice3">
+                <mat-icon style="color:red">close</mat-icon>
+              </div>
+            </td>
+          </ng-container>
+          <ng-container matColumnDef="TimeSlice4">
+            <th mat-header-cell *matHeaderCellDef>00:00-06:00</th>
+            <td mat-cell *matCellDef="let needTeacher">
+              <div *ngIf="needTeacher.TimeSlice4">
+                <mat-icon style="color:green">check</mat-icon>
+              </div>
+              <div *ngIf="!needTeacher.TimeSlice4">
+                <mat-icon style="color:red">close</mat-icon>
+              </div>
+            </td>
+          </ng-container>
+          <ng-container matColumnDef="IDSubject">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>מספר מקצוע</th>
+            <td mat-cell *matCellDef="let needTeacher">{{needTeacher.IDSubject}}</td>
+          </ng-container>
+          <ng-container matColumnDef="Subject">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>מקצוע</th>
+            <td mat-cell *matCellDef="let needTeacher">{{needTeacher.Subject}}</td>
+          </ng-container>
+          <ng-container matColumnDef="IDLevel">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>מספר כיתה</th>
+            <td mat-cell *matCellDef="let needTeacher">{{needTeacher.IDLevel}}</td>
+          </ng-container>
+          <ng-container matColumnDef="Level">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>כיתה</th>
+            <td mat-cell *matCellDef="let needTeacher">{{needTeacher.Level}}</td>
+          </ng-container>
+          <ng-container matColumnDef="Comments">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>הערות</th>
+            <td mat-cell *matCellDef="let needTeacher">{{needTeacher.Comments}}</td>
+          </ng-container>
+          <ng-container matColumnDef="actionsBtn">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>פעולות</th>
+            <td mat-cell *matCellDef="let needTeacher">
+              <button class="buttonDecision" (click)="onEditNeedTeacher(needTeacher)">
+                <mat-icon style="color: cyan">open_in_new</mat-icon>
+              </button>
+              <button class="buttonDecision" (click)="onDeleteNeedTeacher(needTeacher.IDNeedTeacher)">
+                <mat-icon style="color: red">delete_outline</mat-icon>
+              </button>
+            </td>
+          </ng-container>
+          <tr mat-header-row *matHeaderRowDef="displayColumnNeedTeacher"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayColumnNeedTeacher;"></tr>
+        </table>
+        <mat-paginator #needTeacherPaginator [pageSizeOptions]="[5, 10, 25, 100]" aria-label="Select page of need teacher"></mat-paginator>
+      </div>
+    </mat-tab>
+  </mat-tab-group>
+</main>
+<footer >
+  <a routerLink="/ContactUs"><button mat-button color="primary">צרו קשר</button></a>
+  <p>@HelpXPress 2022 by Dinah Cahen </p>
+</footer>

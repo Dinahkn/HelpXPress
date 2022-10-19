@@ -1,0 +1,13 @@
+
+*:not(mat-icon){
+  font-family: 'David Libre', serif;
+}
+#myForm{
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding-top: 15px;
+  padding-bottom: 15px;
+
+}
+
